@@ -79,12 +79,12 @@ class Feed
 
             // date
             $date = (string)$item->children('http://purl.org/dc/elements/1.1/')->date;
+            $tmp['date'] = "";
             if( $date ){    // 日付ありの場合
                 $dt = new \DateTime($date);
                 $dt->setTimeZone(new \DateTimeZone(self::$timezone));
                 $tmp['date'] = $dt->format('Y-m-d H:i:s');
             }
-            else $tmp['date'] = "2100-01-01 00:00:00";
             
             // description
             $tmp['description'] = mb_convert_encoding((string)$item->description, 'UTF-8', 'auto');
@@ -118,12 +118,12 @@ class Feed
 
             // date
             $date = (string)$item->pubDate;
+            $tmp['date'] = "";
             if( $date ){    // 日付ありの場合
                 $dt = new \DateTime($date);
                 $dt->setTimeZone(new \DateTimeZone(self::$timezone));
                 $tmp['date'] = $dt->format('Y-m-d H:i:s');
             }
-            else $tmp['date'] = "2100-01-01 00:00:00";
 
             // description
             $tmp['description'] = mb_convert_encoding((string)$item->description,'UTF-8','auto');
@@ -160,12 +160,12 @@ class Feed
             } else {
                 $date = (string)$entry->published;
             }
+            $tmp['date'] = "";
             if( $date ){    // 日付ありの場合
                 $dt = new \DateTime($date);
                 $dt->setTimeZone(new \DateTimeZone(self::$timezone));
                 $tmp['date'] = $dt->format('Y-m-d H:i:s');
             }
-            else $tmp['date'] = "2100-01-01 00:00:00";
             
             // description
             $tmp['description'] = mb_convert_encoding((string)$entry->content, 'UTF-8','auto');
