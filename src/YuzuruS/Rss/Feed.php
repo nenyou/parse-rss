@@ -279,7 +279,13 @@ class Feed
             curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE); // sometime is useful :)
         }
         $result = curl_exec($curl);
-        return curl_errno($curl) === 0 && curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200
+        
+        if( !$result ){
+            $options= ['ssl' => ['verify_peer' => false, 'verify_peer_name' => false ]];
+            $result= file_get_contents( $url, false, stream_context_create($options));
+        }
+        
+        return ( curl_errno($curl) === 0 && curl_getinfo($curl, CURLINFO_HTTP_CODE) === 200 ) || $result
             ? $result
             : FALSE;
     }
